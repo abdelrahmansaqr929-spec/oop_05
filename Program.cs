@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.Numerics;
+using System.Reflection.Metadata;
 using System.Security.AccessControl;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -44,22 +46,37 @@ namespace oop
             #endregion
             #region answer_03
             //a)
-//A static field belongs to the class itself and is shared across all objects of that class,
-//meaning there's only one copy of it in memory. An instance field belongs to each individual object,
-//so every object has its own separate copy.
-//b) 
-//A static method belongs to the class rather than to any object,
- //and is called through the class name without needing to create an object first
- //It cannot directly access instance members,
- //because it has no specific object to operate on;
- //it would need an object passed to it as a parameter to reach those members.
-//c)
-//A static constructor is a special constructor used to initialize static members of a class. It runs automatically and only once, the first time the class is used, before any object is created or any static member is accessed.
+            //A static field belongs to the class itself and is shared across all objects of that class,
+            //meaning there's only one copy of it in memory. An instance field belongs to each individual object,
+            //so every object has its own separate copy.
+            //b) 
+            //A static method belongs to the class rather than to any object,
+            //and is called through the class name without needing to create an object first
+            //It cannot directly access instance members,
+            //because it has no specific object to operate on;
+            //it would need an object passed to it as a parameter to reach those members.
+            //c)
+            //A static constructor is a special constructor used to initialize static members of a class. It runs automatically and only once, the first time the class is used, before any object is created or any static member is accessed.
 
-//d)
-//A static class is a class that can only contain static members and is typically used to group related utility functionality
-//You cannot create an object from it, since it has no accessible constructor and isn't meant to be instantiated.
+            //d)
+            //A static class is a class that can only contain static members and is typically used to group related utility functionality
+            //You cannot create an object from it, since it has no accessible constructor and isn't meant to be instantiated.
             #endregion
+            #region answer_04
+            //a) 
+            //A static method that lets you add new functionality to an existing type without modifying its source code
+            //creating a subclass, or recompiling it
+            //It appears to be called as if it were a regular instance method on that type.
+            //b) 
+            //The this keyword, placed before the first parameter's type, which specifies the type being extended.
+            //c) 
+            //Inside a static class, and the extension method itself must also be static.
+            //d) 
+            //No.An extension method has no special access to the class
+            //it only sees what's publicly accessible, exactly like any outside code would.
+
+            #endregion
+
 
         }
     }
