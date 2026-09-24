@@ -1,8 +1,11 @@
-﻿using System.Drawing;
+﻿using System.Collections;
+using System.Drawing;
 using System.Numerics;
 using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace oop
 {
@@ -76,8 +79,25 @@ namespace oop
             //it only sees what's publicly accessible, exactly like any outside code would.
 
             #endregion
+            # region answer05
+            //A)
+            //A class whose definition is split across two or more files using the partial keyword
+            //The compiler combines all the parts into a single class when the project builds
+//b) 
+//To separate auto-generated code from hand  written code,
+//to let multiple developers work on different parts of the same class without conflicts,
+//and to keep large classes more organized and readable.
+//c) 
+//A method declared in one part of a partial class that defines only its signature,
+//with the actual implementation optionally provided in another part of the class.
+//It's typically used to allow generated code to expose an optional "hook" that other code can implement if needed.
+//d) 
+//The compiler removes the method entirely, along with any calls to it,
+//so it doesn't affect the compiled code at all.
+//This only works if the partial method returns void and has no out parameters.
+            #endregion
 
-
+            
         }
     }
 }
