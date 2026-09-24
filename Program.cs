@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using opp__04;
+using System.Collections;
 using System.Drawing;
 using System.Numerics;
 using System.Reflection.Metadata;
@@ -79,25 +80,166 @@ namespace oop
             //it only sees what's publicly accessible, exactly like any outside code would.
 
             #endregion
-            # region answer05
+            #region answer05
             //A)
             //A class whose definition is split across two or more files using the partial keyword
             //The compiler combines all the parts into a single class when the project builds
-//b) 
-//To separate auto-generated code from hand  written code,
-//to let multiple developers work on different parts of the same class without conflicts,
-//and to keep large classes more organized and readable.
-//c) 
-//A method declared in one part of a partial class that defines only its signature,
-//with the actual implementation optionally provided in another part of the class.
-//It's typically used to allow generated code to expose an optional "hook" that other code can implement if needed.
-//d) 
-//The compiler removes the method entirely, along with any calls to it,
-//so it doesn't affect the compiled code at all.
-//This only works if the partial method returns void and has no out parameters.
+            //b) 
+            //To separate auto-generated code from hand  written code,
+            //to let multiple developers work on different parts of the same class without conflicts,
+            //and to keep large classes more organized and readable.
+            //c) 
+            //A method declared in one part of a partial class that defines only its signature,
+            //with the actual implementation optionally provided in another part of the class.
+            //It's typically used to allow generated code to expose an optional "hook" that other code can implement if needed.
+            //d) 
+            //The compiler removes the method entirely, along with any calls to it,
+            //so it doesn't affect the compiled code at all.
+            //This only works if the partial method returns void and has no out parameters.
             #endregion
+            #region answer_06   
+                DeliveryUtilities.PrintSystemTitle("Smart Delivery Management System");
+                Console.WriteLine();
 
-            
+            Shipment.GetTotalShipmentsCreated();   
+            Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Creating Shipments...");
+                Console.WriteLine();
+
+                DeliveryAddress address = new DeliveryAddress("Cairo", "Tahrir St", "Egypt");
+
+                StandardShipment standard = new StandardShipment("SH001", "Laptop", 3, 80, address);
+                Console.WriteLine("Standard Shipment Created");
+
+                ExpressShipment express = new ExpressShipment("SH002", "Documents", 2, 50, new DeliveryAddress("Cairo", "Nasr City", "Egypt"), 30);
+                Console.WriteLine("Express Shipment Created");
+
+                InternationalShipment international = new InternationalShipment("SH003", "Machine", 8, 100, new DeliveryAddress("Cairo", "Maadi", "Egypt"), "Germany", 110);
+                Console.WriteLine("International Shipment Created");
+                Console.WriteLine();
+
+                Console.WriteLine($"Total Shipments Created : {Shipment.GetTotalShipmentsCreated()}");
+                Console.WriteLine();
+
+                express.UpdateTrackingStatus("Out For Delivery");
+                international.UpdateTrackingStatus("Delivered");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Object Copying");
+                Console.WriteLine();
+
+                Shipment shipment2 = standard;
+                Console.WriteLine($"Original Shipment  : {standard.TrackingCode}");
+                Console.WriteLine($"Assigned Shipment  : {shipment2.TrackingCode}");
+                Console.WriteLine();
+                Console.WriteLine($"Same Object : {ReferenceEquals(standard, shipment2)}");
+                Console.WriteLine();
+
+                Shipment actualCopy = standard.CopyShipment();
+                Console.WriteLine($"Same Object (CopyShipment) : {ReferenceEquals(standard, actualCopy)}");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSubSeparator();
+                Console.WriteLine("Shallow Copy");
+                DeliveryUtilities.PrintSubSeparator();
+                Console.WriteLine();
+
+                Shipment shallowCopy = standard.ShallowCopy();
+                Console.WriteLine($"Original Shipment Address : {standard.Destination.City}");
+                Console.WriteLine($"Copied Shipment Address   : {shallowCopy.Destination.City}");
+                Console.WriteLine();
+                Console.WriteLine("Changing copied shipment address...");
+                Console.WriteLine();
+                shallowCopy.Destination.City = "Giza";
+                Console.WriteLine($"Original Shipment Address : {standard.Destination.City}");
+                Console.WriteLine($"Copied Shipment Address   : {shallowCopy.Destination.City}");
+                Console.WriteLine();
+                Console.WriteLine($"Same DeliveryAddress Object : {ReferenceEquals(standard.Destination, shallowCopy.Destination)}");
+                Console.WriteLine();
+
+                standard.Destination.City = "Cairo";
+
+                DeliveryUtilities.PrintSubSeparator();
+                Console.WriteLine("Deep Copy");
+                DeliveryUtilities.PrintSubSeparator();
+                Console.WriteLine();
+
+                Shipment deepCopy = standard.DeepCopy();
+                Console.WriteLine($"Original Shipment Address : {standard.Destination.City}");
+                Console.WriteLine($"Copied Shipment Address   : {deepCopy.Destination.City}");
+                Console.WriteLine();
+                Console.WriteLine("Changing copied shipment address...");
+                Console.WriteLine();
+                deepCopy.Destination.City = "Giza";
+                Console.WriteLine($"Original Shipment Address : {standard.Destination.City}");
+                Console.WriteLine($"Copied Shipment Address   : {deepCopy.Destination.City}");
+                Console.WriteLine();
+                Console.WriteLine($"Same DeliveryAddress Object : {ReferenceEquals(standard.Destination, deepCopy.Destination)}");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Extension Methods");
+                Console.WriteLine();
+
+                Console.WriteLine(standard.GetSummary());
+                Console.WriteLine(express.GetSummary());
+                Console.WriteLine(international.GetSummary());
+                Console.WriteLine();
+                Console.WriteLine($"{standard.TrackingCode} Is Delivered : {standard.IsDelivered()}");
+                Console.WriteLine($"{international.TrackingCode} Is Delivered : {international.IsDelivered()}");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Tracking Status");
+                Console.WriteLine();
+
+                standard.UpdateTrackingStatus("Out For Delivery");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Static Utilities");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSubSeparator();
+                Console.WriteLine("Delivery Center");
+                DeliveryUtilities.PrintSubSeparator();
+                Console.WriteLine();
+
+                DeliveryCenter center = new DeliveryCenter();
+                center.AddShipment(standard);
+                center.AddShipment(express);
+                center.AddShipment(international);
+
+                center.PrintAllShipments();
+                center.PrintTrackingStatuses();
+
+                DeliveryReport report = new DeliveryReport();
+                report.PrintInsurance(standard);
+                report.PrintInsurance(express);
+                report.PrintInsurance(international);
+
+                ITrackable[] trackables = { standard, express, international };
+                foreach (ITrackable t in trackables)
+                    report.PrintShipment(t);
+
+                IInsurable[] insurables = { standard, express, international };
+                foreach (IInsurable i in insurables)
+                    report.PrintInsurance(i);
+
+                Console.WriteLine();
+                Console.WriteLine($"Total Shipments Created : {Shipment.GetTotalShipmentsCreated()}");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Partial Method");
+                Console.WriteLine();
+
+                standard.UpdateTrackingStatus("Delivered");
+                Console.WriteLine();
+
+                DeliveryUtilities.PrintSystemTitle("Assignment Completed");
+
+                Console.ReadKey();
+            }
         }
     }
-}
+            #endregion
+
+
