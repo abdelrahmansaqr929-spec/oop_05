@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Security.AccessControl;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace oop
@@ -18,28 +19,46 @@ namespace oop
             #endregion
             #region answer_02
             //a)
-//A new object is created,
-//but any reference type members inside it still point to the same underlying objects as the original,
-//rather than being duplicated.
+            //A new object is created,
+            //but any reference type members inside it still point to the same underlying objects as the original,
+            //rather than being duplicated.
 
-//b)
-//A new object is created
-//and every reference type member inside it is also duplicated into new,
-//independent objects, so the copy is fully separate from the original.
+            //b)
+            //A new object is created
+            //and every reference type member inside it is also duplicated into new,
+            //independent objects, so the copy is fully separate from the original.
 
-//c) 
-//They remain shared
-//The original and the copy both point to the same inner object,
-//so a change made through either one is reflected in both.
+            //c) 
+            //They remain shared
+            //The original and the copy both point to the same inner object,
+            //so a change made through either one is reflected in both.
 
-//d) 
-//They are duplicated as well
-// Each reference type member gets its own independent copy,
-// so there is no shared state between the original and the copy.
+            //d) 
+            //They are duplicated as well
+            // Each reference type member gets its own independent copy,
+            // so there is no shared state between the original and the copy.
 
-//e)
-//If an object contains a list or collection and you want to create a draft or test version to modify freely,
-//a shallow copy would let changes to that draft accidentally affect the original, since they'd share the same underlying list. A deep copy avoids this by giving the draft its own independent data.
+            //e)
+            //If an object contains a list or collection and you want to create a draft or test version to modify freely,
+            //a shallow copy would let changes to that draft accidentally affect the original, since they'd share the same underlying list. A deep copy avoids this by giving the draft its own independent data.
+            #endregion
+            #region answer_03
+            //a)
+//A static field belongs to the class itself and is shared across all objects of that class,
+//meaning there's only one copy of it in memory. An instance field belongs to each individual object,
+//so every object has its own separate copy.
+//b) 
+//A static method belongs to the class rather than to any object,
+ //and is called through the class name without needing to create an object first
+ //It cannot directly access instance members,
+ //because it has no specific object to operate on;
+ //it would need an object passed to it as a parameter to reach those members.
+//c)
+//A static constructor is a special constructor used to initialize static members of a class. It runs automatically and only once, the first time the class is used, before any object is created or any static member is accessed.
+
+//d)
+//A static class is a class that can only contain static members and is typically used to group related utility functionality
+//You cannot create an object from it, since it has no accessible constructor and isn't meant to be instantiated.
             #endregion
 
         }
